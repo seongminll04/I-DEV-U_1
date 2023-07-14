@@ -1,0 +1,98 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema mate
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mate
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mate` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `mate` ;
+
+-- -----------------------------------------------------
+-- Table `mate`.`user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mate`.`user` ;
+
+CREATE TABLE IF NOT EXISTS `mate`.`user` (
+  `idx` INT NOT NULL AUTO_INCREMENT,
+  `user_id` VARCHAR(50) NOT NULL,
+  `user_pw` VARCHAR(15) NOT NULL,
+  `user_name` VARCHAR(10) NOT NULL,
+  `user_nickname` VARCHAR(12) NOT NULL,
+  `user_birth` DATE NOT NULL,
+  `user_gender` VARCHAR(2) NOT NULL,
+  PRIMARY KEY (`idx`, `user_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mate`.`user_image`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mate`.`user_image` ;
+
+CREATE TABLE IF NOT EXISTS `mate`.`user_image` (
+  `idx` INT NOT NULL AUTO_INCREMENT,
+  `user_idx` INT NULL,
+  `image_url` TEXT NULL,
+  PRIMARY KEY (`idx`),
+  INDEX `user_image_to_user_fk_user_idx_to_idx_idx` (`user_idx` ASC) VISIBLE,
+  CONSTRAINT `user_image_to_user_fk_user_idx_to_idx`
+    FOREIGN KEY (`user_idx`)
+    REFERENCES `mate`.`user` (`idx`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mate`.`basic_survey`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mate`.`basic_survey` ;
+
+CREATE TABLE IF NOT EXISTS `mate`.`basic_survey` (
+  `idx` INT NOT NULL AUTO_INCREMENT,
+  `survey_title` VARCHAR(100) NULL,
+  PRIMARY KEY (`idx`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mate`.`basic_answer`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mate`.`basic_answer` ;
+
+CREATE TABLE IF NOT EXISTS `mate`.`basic_answer` (
+  `idx` INT NOT NULL AUTO_INCREMENT,
+  `survey_idx` INT NULL,
+  `user_idx` INT NULL,
+  `survey_tag` VARCHAR(100) NULL,
+  PRIMARY KEY (`idx`),
+  INDEX `basic_answer_to_basic_survey_fk_survey_idx_to_idx_idx` (`survey_idx` ASC) VISIBLE,
+  INDEX `basic_answer_to_user_fk_user_idx_to_idx_idx` (`user_idx` ASC) VISIBLE,
+  CONSTRAINT `basic_answer_to_basic_survey_fk_survey_idx_to_idx`
+    FOREIGN KEY (`survey_idx`)
+    REFERENCES `mate`.`basic_survey` (`idx`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `basic_answer_to_user_fk_user_idx_to_idx`
+    FOREIGN KEY (`user_idx`)
+    REFERENCES `mate`.`user` (`idx`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+현재까지 작성한 DB SQL입니다.
