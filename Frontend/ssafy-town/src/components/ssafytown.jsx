@@ -27,7 +27,7 @@ function create() {
 
 function update() {
   if (cursors.left.isDown) {
-    character.setVelocityX(-1280);  //지금 개발중이라 속도 4배상태 320~640으로 다 셋팅해줘야할듯함.
+    character.setVelocityX(-1280);
   } else if (cursors.right.isDown) {
     character.setVelocityX(1280);
   } else {
@@ -43,7 +43,7 @@ function update() {
   }
 }
 
-export const Game = () => {
+export const Town = () => {
   useEffect(() => {
     const config = {
       type: Phaser.AUTO,
