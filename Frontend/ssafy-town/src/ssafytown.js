@@ -1,3 +1,4 @@
+import './ssafytown.css';
 import React, { useEffect } from 'react';
 import Phaser from 'phaser';
 
@@ -18,24 +19,24 @@ function create() {
   }
 
   character = this.physics.add.sprite(50, 50, 'character');
-  character.setCollideWorldBounds(true); // 이 코드를 추가합니다
+  character.setCollideWorldBounds(true);
 
   cursors = this.input.keyboard.createCursorKeys();
 }
 
 function update() {
   if (cursors.left.isDown) {
-    character.setVelocityX(-160);
+    character.setVelocityX(-320);
   } else if (cursors.right.isDown) {
-    character.setVelocityX(160);
+    character.setVelocityX(320);
   } else {
     character.setVelocityX(0);
   }
 
   if (cursors.up.isDown) {
-    character.setVelocityY(-160);
+    character.setVelocityY(-320);
   } else if (cursors.down.isDown) {
-    character.setVelocityY(160);
+    character.setVelocityY(320);
   } else {
     character.setVelocityY(0);
   }
@@ -45,8 +46,9 @@ export const Game = () => {
   useEffect(() => {
     const config = {
       type: Phaser.AUTO,
-      width: 800,
-      height: 600,
+      parent: "phaser-game",
+      width: window.innerWidth * 0.9,
+      height: window.innerHeight,
       physics: {
         default: 'arcade',
       },
@@ -60,5 +62,12 @@ export const Game = () => {
     new Phaser.Game(config);
   }, []);
 
-  return <div id="phaser-game" />;
+  return (
+    <div id="game-container">
+      <div id="sidebar">
+        <img src="assets/side.png" alt="icon" />
+      </div>
+      <div id="phaser-game" />
+    </div>
+  );
 };
