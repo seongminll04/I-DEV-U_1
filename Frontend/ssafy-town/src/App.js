@@ -10,10 +10,13 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
+          {/* 로그인여부에 따른 login, home 이동  */}
+          <Route path="/" element={<Login />}/> 
+          
           <Route path="/login" element={<Login />} exact />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/findpassword" element={<Findpassword />} />
-          <Route path="/game" element={<Town />} />
+          <Route path="/home" element={<Town />} />
         </Routes>
       </div>
     </Router>
