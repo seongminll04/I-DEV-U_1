@@ -47,14 +47,15 @@ public class UserController {
             res.put("resmsg", "아이디 사용 가능");
             return ResponseEntity.ok(res);
         } else {
-            return ResponseEntity.notFound().build();
+            res.put("resmsg", "아이디 사용중");
+            return ResponseEntity.ok(res);
         }
     }
 
     /*
      * 닉네임 중복 확인
      */
-    @GetMapping("/signup/idcheck/{nickname}")
+    @GetMapping("/signup/nickcheck/{nickname}")
     public ResponseEntity<Map<String, String>> nickcheck(@PathVariable("nickname") String nickname) {
         Map<String, String> res = new HashMap<>();
 
