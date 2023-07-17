@@ -65,7 +65,8 @@ public class UserController {
             res.put("resmsg", "닉네임 사용 가능");
             return ResponseEntity.ok(res);
         } else {
-            return ResponseEntity.notFound().build();
+            res.put("resmsg", "닉네임 사용중");
+            return ResponseEntity.ok(res);
         }
     }
 
